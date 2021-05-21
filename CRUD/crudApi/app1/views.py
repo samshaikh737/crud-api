@@ -41,7 +41,6 @@ def databaseApi(request):
         stream = io.BytesIO(requestBody)
         #convert into json
         jsonData = JSONParser().parse(stream)
-        print(jsonData)
         serializer = DatabaseSerializer(data=jsonData)
         if serializer.is_valid():
             serializer.save()
@@ -90,3 +89,13 @@ def viewsAlldata(request):
     serializer = DatabaseSerializer(db,many=True)
     jsonData = JSONRenderer().render(serializer.data)
     return HttpResponse(jsonData,content_type="application/json")
+
+
+def deleteAllData(request):
+    if request.user.is_authenticated:
+        Database.objects.all().delete()
+        return JsonResponse({"msg":"data deleted"})        
+    else:
+        return JsonResponse({"msg":"sorry you are not authenticated"})
+
+

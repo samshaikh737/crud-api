@@ -13,17 +13,17 @@ def getData(id):
         print(r.json())
 # getData(10)
 
-def sendData():
+def sendData(name,age,email,city):
     data = {
-        "name":"sameer",
-        "age":14,
-        "email":"ali@gmail.com",
+        "name":name,
+        "age":age,
+        "email":email,
         "city":"mumbai"
     }
     jsonData = json.dumps(data)
     r = requests.post(url=url,data=jsonData)
     print(r.json())
-# sendData()
+sendData("sameer",16,"sameer@gmail.com","mumbai")
 
 def updateData(id):
     data = {
